@@ -25,13 +25,15 @@ def main():
     process_func = DATASET_LOADERS[args.dataset]
 
     print(f"--- Iniciando padronização do {args.dataset.upper()} ---")
-    df = process_func(os.path.abspath(args.input_dir))
+    df = process_func(args.input_dir)
 
     if df is not None and not df.empty:
         output_csv = os.path.abspath(args.output_csv)
-        os.makedirs(os.path.dirname(output_csv), exist_ok=True)
-        
-        df.to_csv(output_csv, index=False)
+        if os.path.isdir(output_csv):
+            os.makedirs(os.path.dirname(output_csv), exist_ok=True)
+            df.to_csv(os.path.join(output_csv, "standardized_" + args.dataset + ".csv"), index=False)
+        else:
+            df.to_csv(output_csv, index=False)
         print(f"Sucesso! CSV salvo em: {args.output_csv}")
         print(f"Total de amostras: {len(df)}")
     else:

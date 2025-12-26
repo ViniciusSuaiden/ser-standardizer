@@ -25,7 +25,7 @@ EMOTION_MAP = {
     'N': 'Neutral',
 }
 
-def process(base_dir=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data", "CREMA-D")):
+def process(base_dir=None):
     """
     Processa todos os arquivos de áudio do dataset CREMA-D,
     consolida os metadados e retorna um DataFrame padronizado.
@@ -41,6 +41,10 @@ def process(base_dir=os.path.join(os.path.dirname(os.path.abspath(__file__)), ".
     print("Iniciando processamento do CREMA-D...")
 
     # --- Definir Caminhos ---
+    if base_dir is None:
+        base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data", "CREMA-D")
+    else:
+        base_dir = os.path.abspath(base_dir)
     AUDIO_DIR = os.path.join(base_dir, "AudioWAV")
     DEMOGRAPHICS_FILE = os.path.join(base_dir, "VideoDemographics.csv")
     RESPONSES_FILE = os.path.join(base_dir, "finishedResponses.csv")
