@@ -10,7 +10,7 @@ def main():
                         choices=get_available_datasets(),
                         help='Qual dataset processar')
     
-    parser.add_argument('--input_dir', type=str, required=False, 
+    parser.add_argument('--input_dir', type=str, required=True, 
                         help='Caminho raiz onde o dataset original está salvo')
     
     parser.add_argument('--output_csv', type=str, required=True, 
@@ -25,7 +25,7 @@ def main():
     process_func = DATASET_LOADERS[args.dataset]
 
     print(f"--- Iniciando padronização do {args.dataset.upper()} ---")
-    df = process_func(args.input_dir)
+    df = process_func(os.path.abspath(args.input_dir))
 
     if df is not None and not df.empty:
         output_csv = os.path.abspath(args.output_csv)
