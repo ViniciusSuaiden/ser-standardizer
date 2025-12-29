@@ -15,7 +15,7 @@ A ferramenta atualmente suporta o carregamento e padronização dos seguintes ba
 * **IEMOCAP**: Interactive Emotional Dyadic Motion Capture Database.
 * **SAVEE**: Surrey Audio-Visual Expressed Emotion.
 * **EmoUERJ**: Banco de dados de emoções em português (Brasil).
-* **MSP**: The MSP-Improv Audio-Visual Database.
+* **MSP-IMPROV**: The MSP-Improv Audio-Visual Database.
 
 ## 🚀 Instalação
 
