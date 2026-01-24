@@ -4,7 +4,8 @@ import pandas as pd
 
 EMOTION_MAP = {
     'ang': 'Anger',
-    'hap': 'Happy', 'exc': 'Happy',
+    'hap': 'Happy', 
+    'exc': 'Excited', # juntar com hap
     'sad': 'Sad',
     'neu': 'Neutral',
     'fru': 'Frustration',

@@ -3,6 +3,7 @@ from .iemocap import process as process_iemocap
 from .savee import process as process_savee
 from .msp_improv import process as process_msp
 from .emouerj import process as process_emouerj
+from .ravdess import process as process_ravdess
 
 # Dicionário que mapeia o nome do dataset (string) para a função de processamento
 DATASET_LOADERS = {
@@ -10,7 +11,8 @@ DATASET_LOADERS = {
     'iemocap': process_iemocap,
     'savee': process_savee,
     'msp_improv': process_msp,
-    'emouerj': process_emouerj
+    'emouerj': process_emouerj,
+    'ravdess': process_ravdess
 }
 
 def get_available_datasets():
