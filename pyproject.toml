@@ -27,7 +27,9 @@ dependencies = [
 requires-python = ">=3.8"
 
 [project.scripts]
-ser-std = "src.main:main"
+ser-std = "ser_standardizer.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["src"] 
+include = ["ser_standardizer*"]
+namespaces = false
