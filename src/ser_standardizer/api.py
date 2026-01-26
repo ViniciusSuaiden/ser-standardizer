@@ -14,7 +14,8 @@ def load(datasets):
         target_datasets = datasets
 
     dataframes = []
-
+    
+    DATA_DIR = os.path.join(Path.home(), ".ser_standardizer_data")
     for name in target_datasets:
         file_path = os.path.join(DATA_DIR, f"process_{name}.csv")
         
