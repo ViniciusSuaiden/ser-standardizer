@@ -1,4 +1,4 @@
-## Fonte Oficial e Download
+## CREMA-D (guia)
 
 Os dados estão hospedados no GitHub, mas utilizam **Git LFS (Large File Storage)** para os arquivos de áudio.
 
@@ -16,10 +16,10 @@ Certifique-se de ter o `git-lfs` instalado e clone o repositório via terminal:
 git lfs install
 
 # 2. Clone o repositório
-git clone [https://github.com/CheyneyComputerScience/CREMA-D.git](https://github.com/CheyneyComputerScience/CREMA-D.git)
+git clone https://github.com/CheyneyComputerScience/CREMA-D.git
+```
 
 ## Estrutura de Diretórios Esperada
-
 Para que o loader funcione corretamente, **não renomeie** os arquivos internos chave (`VideoDemographics.csv` e `finishedResponses.csv`) nem a pasta de áudio (`AudioWAV`).
 
 O parâmetro `input_dir` deve apontar para a pasta raiz contendo a seguinte estrutura:
