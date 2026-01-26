@@ -2,7 +2,7 @@ import argparse
 import os
 import pandas as pd
 from pathlib import Path
-from src.loaders import DATASET_LOADERS, get_available_datasets
+from .loaders import DATASET_LOADERS, get_available_datasets
 
 def main():
     parser = argparse.ArgumentParser(description="Padronizador de Datasets de Emoção em Fala")
