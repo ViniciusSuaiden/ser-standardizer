@@ -16,6 +16,7 @@ A ferramenta atualmente suporta o carregamento e padronização dos seguintes ba
 * **SAVEE**: Surrey Audio-Visual Expressed Emotion.
 * **EmoUERJ**: Banco de dados de emoções em português (Brasil).
 * **MSP-IMPROV**: The MSP-Improv Audio-Visual Database.
+* **RAVDESS**: The Ryerson Audio-Visual Database of Emotional Speech and Song 
 
 ## 🚀 Instalação
 
@@ -40,7 +41,14 @@ Após a instalação, o comando ser-std estará disponível no seu terminal.
 Para padronizar um dataset específico:
 ```bash
 # Exemplo: crema_d
-ser-std --dataset crema_d --input_dir /caminho/para/crema --output_csv /caminho/para/saida
+ser-std --dataset crema_d --input_dir /caminho/para/crema
+```
+O arquivo `.csv` padronizado é inserido na pasta base do usuário, com nomes específicos para cada banco de dados.
+É possível importar a biblioteca para manuseio dos dados do seguinte modo:
+```python
+import ser_standardizer as ser
+
+df = ser.load(["crema_d", "ravdess"]) # retorna DataFrame com dados padronizados
 ```
 
 ### ✍️ Autores

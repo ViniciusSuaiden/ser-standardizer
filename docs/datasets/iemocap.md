@@ -12,7 +12,7 @@ Após preencher o formulário no link acima, a equipe da USC enviará as instru�
 O parâmetro `input_dir` deve apontar para a pasta raiz contendo a seguinte estrutura:
 
 ```text
-/caminho/para/seu/dataset/IEMOCAP/  <-- O base_dir deve apontar aqui
+/caminho/para/seu/dataset/IEMOCAP/  <-- O input_dir deve apontar aqui
 │
 ├── Session1/
 │   ├── dialog/
