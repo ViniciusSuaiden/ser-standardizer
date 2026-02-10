@@ -35,7 +35,9 @@ pip install .
 ```
 
 ### 💻 Como Usar
-**Uso via Linha de Comando (CLI)**
+O fluxo de trabalho consiste em duas etapas: Pré-processamento (via terminal) e Manipulação dos Dados (via Python).
+
+**1. Pré-processamento (CLI)**
 
 Após a instalação, o comando ser-std estará disponível no seu terminal.
 Para padronizar um dataset específico:
@@ -44,11 +46,29 @@ Para padronizar um dataset específico:
 ser-std --dataset crema_d --input_dir /caminho/para/crema
 ```
 O arquivo `.csv` padronizado é inserido na pasta base do usuário, com nomes específicos para cada banco de dados.
-É possível importar a biblioteca para manuseio dos dados do seguinte modo:
+
+**2. API Python**
+
+Após o pré-processamento, utilize a biblioteca para carregar, filtrar e manipular os áudios diretamente em seu código ou Jupyter Notebook.
 ```python
 import ser_standardizer as ser
 
-df = ser.load(["crema_d", "ravdess"]) # retorna DataFrame com dados padronizados
+# Carregar múltiplos datasets em um DataFrame
+df_all = ser.load_datasets(["crema_d", "ravdess", "iemocap"])
+
+# Filtrar por dataset, emoção, gênero, língua
+df_filtered = ser.filters(
+    df_all,
+    datasets='ravdess',
+    emotions=['anger', 'happy'], 
+    genders=['female'],
+)
+
+# Toca o áudio localizado no índice 42 do DataFrame
+ser.listen(df_filtered, index=42)
+
+# Carrega numpy do índice 0 ao 32
+batch_x = ser.load_batch(df_filtered, begin=0, end=32) # Shape ex: (32, 85000)
 ```
 
 ### ✍️ Autores
