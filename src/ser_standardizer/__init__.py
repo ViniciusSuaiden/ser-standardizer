@@ -1,1 +1,1 @@
-from .api import load_datasets, load_audio, load_batch, listen, filters
+from .api import load_datasets, load_audio, load_batch, listen, filters, rms

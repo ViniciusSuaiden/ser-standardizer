@@ -4,6 +4,8 @@ from pathlib import Path
 import librosa
 import numpy as np
 from IPython.display import Audio, display
+from tqdm.auto import tqdm
+import noisereduce as nr
 
 def load_datasets(datasets):
     """
@@ -71,7 +73,7 @@ def load_batch(df, begin, end, sr=16000, max_1000=True):
     
     subset_indices = df.index[begin:end]
 
-    for idx in subset_indices:
+    for idx in tqdm(subset_indices, desc="Carregando áudios"):
         try:
             audio = load_audio(df, idx, sr)
             batch.append(audio)
@@ -127,3 +129,23 @@ def filters(df, datasets=None, emotions=None, genders=None, languages=None):
     
     print(f"Filtro aplicado. Restaram {len(df[mask])} áudios.")
     return df[mask].copy()
+
+def rms(audio, sr=16000, top_db=30):
+    """
+    Aplica redução de ruído, remove silêncios e extrai rms.
+    """
+    audio_clean = nr.reduce_noise(y=audio, sr=sr)
+
+    intervals = librosa.effects.split(audio_clean, top_db=top_db)
+    
+    if len(intervals) > 0:
+        audio_no_silence = np.concatenate([audio_clean[start:end] for start, end in intervals])
+    else:
+        audio_no_silence = np.array([])
+
+    if len(audio_no_silence) == 0:
+        return 0.0
+
+    rms = librosa.feature.rms(y=audio_no_silence)
+    
+    return float(np.mean(rms))
