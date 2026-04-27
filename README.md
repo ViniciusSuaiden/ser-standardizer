@@ -3,20 +3,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
 
-**Uma ferramenta para padronização de datasets de Reconhecimento de Emoção na Fala (SER).**
+**Uma infraestrutura modular para padronização de datasets e extração de características em Reconhecimento de Emoção na Fala (SER).**
 
-O **SER-Standardizer** é um pacote Python desenvolvido para unificar o formato de metadados e áudios de diferentes bancos de dados de emoção na fala. O objetivo principal é facilitar o treinamento cruzado (*cross-corpus training*) e testes de generalização de modelos de aprendizado de máquina, removendo a barreira de pré-processamento manual de cada dataset.
+O **SER-Standardizer** é um pacote Python desenvolvido para unificar a formatação de múltiplos bancos de dados de voz, mitigando a heterogeneidade de metadados. O objetivo principal é facilitar o treinamento cruzado (*cross-corpus training*) e testes de generalização de modelos de aprendizado de máquina.
+
+Além do pipeline de padronização, a ferramenta conta com um módulo de extensão para extração de características acústicas (espectrais e prosódicas) integrando o framework **openSMILE**.
 
 ## 📋 Datasets Suportados Atualmente
 
 A ferramenta atualmente suporta o carregamento e padronização dos seguintes bancos de dados:
 
-* **CREMA-D**: Crowd-sourced Emotional Multimodal Actors Dataset.
-* **IEMOCAP**: Interactive Emotional Dyadic Motion Capture Database.
-* **SAVEE**: Surrey Audio-Visual Expressed Emotion.
-* **EmoUERJ**: Banco de dados de emoções em português (Brasil).
-* **MSP-IMPROV**: The MSP-Improv Audio-Visual Database.
-* **RAVDESS**: The Ryerson Audio-Visual Database of Emotional Speech and Song 
+* **CREMA-D** | **IEMOCAP** | **SAVEE** | **EmoUERJ** (PT-BR) | **MSP-IMPROV** | **RAVDESS**
 
 ## 🚀 Instalação
 
@@ -25,17 +22,26 @@ A ferramenta atualmente suporta o carregamento e padronização dos seguintes ba
 * Bibliotecas listadas no `pyproject.toml` (instaladas automaticamente).
 
 ### Instalação via código fonte
-
-Clone este repositório e instale utilizando o `pip`:
-
-```bash
+Clone este repositório para instalar utilizando o `pip` (leia mais abaixo sobre isso):
+```
 git clone https://github.com/ViniciusSuaiden/ser-standardizer.git
 cd ser-standardizer
-pip install .
 ```
 
+A biblioteca foi projetada com flexibilidade em mente, oferecendo duas modalidades de instalação para otimizar o uso de recursos computacionais:
+
+#### 1. Instalação Base (Metadados Leve) 
+Instala apenas os pacotes essenciais (`pandas`, `audb`) para a padronização e filtragem tabular.
+```bash
+pip install .
+```
+#### 2. Instalação Completa (Com Processamento de Sinais)
+Instala as dependências pesadas necessárias para o módulo de extração de características e manipulação de áudio (opensmile, noisereduce).
+```bash
+pip install '.[features]'
+```
 ### 💻 Como Usar
-O fluxo de trabalho consiste em duas etapas: Pré-processamento (via terminal) e Manipulação dos Dados (via Python).
+O fluxo de trabalho é dividido em três etapas lógicas:
 
 **1. Pré-processamento (CLI)**
 
@@ -47,28 +53,49 @@ ser-std --dataset crema_d --input_dir /caminho/para/crema
 ```
 O arquivo `.csv` padronizado é inserido na pasta base do usuário, com nomes específicos para cada banco de dados.
 
-**2. API Python**
+**2. Manipulação e Filtragem de Dados (Python)**
 
 Após o pré-processamento, utilize a biblioteca para carregar, filtrar e manipular os áudios diretamente em seu código ou Jupyter Notebook.
 ```python
 import ser_standardizer as ser
 
-# Carregar múltiplos datasets em um DataFrame
-df_all = ser.load_datasets(["crema_d", "ravdess", "iemocap"])
+# Carrega múltiplos datasets padronizados em um único DataFrame
+df = ser.load_datasets(["crema_d", "ravdess", "iemocap"])
 
-# Filtrar por dataset, emoção, gênero, língua
-df_filtered = ser.filters(
-    df_all,
-    datasets='ravdess',
-    emotions=['anger', 'happy'], 
-    genders=['female'],
+# Filtra por dataset, emoção e gênero
+df_target = ser.filters(
+    df,
+    datasets=['ravdess', 'iemocap'],
+    emotions=['anger', 'sad'], 
+    genders=['female']
+)
+```
+**3. Extração de Características Acústicas (Requer [features])**
+
+O módulo de extração automatiza o processamento digital de sinais. Ele inclui a opção de aplicar uma máscara de Detecção de Atividade de Voz (VAD) baseada na energia RMS para extrair características estritamente dos trechos de fonação efetiva.
+```python
+# Extração massiva via openSMILE
+# 'feature_set' suportados: 'eGeMAPS' ou 'ComParE'
+features_df = ser.extract_features(
+    df_target, 
+    feature_set='eGeMAPS',
+    use_vad=True, # Remove silêncio antes da extração
+    sr=16000      # Taxa de amostragem
 )
 
-# Toca o áudio localizado no índice 42 do DataFrame
-ser.listen(df_filtered, index=42)
+# O resultado preserva os índices originais, facilitando a concatenação
+import pandas as pd
+dataset_final = pd.concat([df_target, features_df], axis=1)
 
-# Carrega numpy do índice 0 ao 32
-batch_x = ser.load_batch(df_filtered, begin=0, end=32) # Shape ex: (32, 85000)
+# --- Utilitários Extras ---
+# Escutar o áudio no Jupyter Notebook
+ser.listen(df_target, index=42)
+
+# Carregar o áudio puro em NumPy Array (ex: para alimentar Redes Neurais)
+audio_array = ser.load_audio(df_target, index=42)
+
+# Carregar um lote de áudios com Zero-Padding
+batch = ser.load_batch(df_target, begin=0, end=32)
 ```
 
 ### ✍️ Autores
