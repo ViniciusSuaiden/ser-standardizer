@@ -54,11 +54,16 @@ def remove_silence(audio, sr=16000, top_db=30):
         audio_no_silence = np.concatenate([audio_clean[start:end] for start, end in intervals])
         return audio_no_silence
     else:
-        return np.array([]) # Retorna vazio se cortar tudo
+        return np.array([])
 
 def listen(df, index):
+    if index not in df.index:
+        print(f"Aviso: Não há nenhum áudio disponível com o índice {index}.")
+        return
+
     path = df.loc[index, 'file_path']
     emotion = df.loc[index, 'emotion']
+    
     print(f"Tocando áudio {index} | Emoção: {emotion}")
     display(Audio(filename=path))
 
