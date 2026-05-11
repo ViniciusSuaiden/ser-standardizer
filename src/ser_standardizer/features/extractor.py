@@ -11,8 +11,9 @@ def extract_features(df, feature_set='eGeMAPS', feature_level='functionals', use
     Args:
         df: DataFrame contendo a coluna 'file_path'.
         feature_set: 'eGeMAPS' ou 'ComParE' (padrões validados na literatura).
-        feature_level: 'functionals' (estatísticas por arquivo) ou 'llds' (nível de frame).
-        use_vad: Se True, aplica a máscara de silêncio antes da extração.
+        feature_level: 'functionals' (estatísticas globais por arquivo) ou 'llds' (nível de frame).
+        use_vad: Se True, remove silêncios baseados na energia RMS. 
+                 ATENÇÃO: Permitido apenas quando feature_level='llds'.
         sr: Taxa de amostragem esperada.
         
     Returns:
@@ -21,7 +22,15 @@ def extract_features(df, feature_set='eGeMAPS', feature_level='functionals', use
         Para 'llds', adiciona o índice original ('file_idx') para cruzamento de metadados.
     """
 
-    # 1. Definir o Conjunto de Features
+    if use_vad and feature_level.lower() == 'functionals':
+        raise ValueError(
+            "Erro de Metodologia: A aplicação de VAD no áudio bruto antes da extração "
+            "de funcionais corrompe as métricas temporais padronizadas do openSMILE "
+            "(como taxa de fala e proporção de pausas) e introduz artefatos no espectro. \n"
+            "-> Para extrair 'functionals' padronizados, defina use_vad=False. \n"
+            "-> O uso de use_vad=True é permitido apenas para extração no nível de frame ('llds')."
+        )
+
     if feature_set.lower() == 'egemaps':
         fset = opensmile.FeatureSet.eGeMAPSv02
     elif feature_set.lower() == 'compare':
@@ -47,7 +56,6 @@ def extract_features(df, feature_set='eGeMAPS', feature_level='functionals', use
     
     features_list = []
     
-    # 3. Processamento
     for idx in tqdm(df.index, desc=f"Extraindo características ({level_name})"):
         file_path = df.loc[idx, 'file_path']
         
@@ -63,7 +71,6 @@ def extract_features(df, feature_set='eGeMAPS', feature_level='functionals', use
             else:
                 feat_df = smile.process_file(file_path)
             
-            # Tratamento diferente com base no nível escolhido
             if flevel == opensmile.FeatureLevel.Functionals:
                 feat_series = feat_df.iloc[0].rename(idx)
                 features_list.append(feat_series)
@@ -73,7 +80,6 @@ def extract_features(df, feature_set='eGeMAPS', feature_level='functionals', use
                 
         except Exception as e:
             print(f"Erro na extração do índice {idx}: {e}")
-            # Tratamento de erro compatível com o nível
             if flevel == opensmile.FeatureLevel.Functionals:
                 features_list.append(pd.Series(dtype=float, name=idx))
             else:
@@ -81,7 +87,6 @@ def extract_features(df, feature_set='eGeMAPS', feature_level='functionals', use
 
     print("Consolidando matriz de features...")
     
-    # 4. Consolidação
     if flevel == opensmile.FeatureLevel.Functionals:
         result_df = pd.DataFrame(features_list)
     else:
