@@ -5,3 +5,5 @@ __pycache__/
 .vscode/
 build/
 jupyter_sketchs/
+CLAUDE.md
+.claude/

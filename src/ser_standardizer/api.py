@@ -54,7 +54,7 @@ def filters(df, datasets=None, emotions=None, genders=None, languages=None):
     return df[mask].copy()
 
 try:
-    from .features.preprocessing import listen, load_audio, load_batch, mean_energy
+    from .features.preprocessing import listen, load_audio, load_batch
     from .features.extractor import extract_features
     FEATURES_AVAILABLE = True
 
@@ -68,4 +68,4 @@ except ImportError:
             "    pip install '.[features]'"
         )
         
-    listen = load_audio = load_batch = mean_energy = extract_features = _missing_deps_error
+    listen = load_audio = load_batch = extract_features = _missing_deps_error
