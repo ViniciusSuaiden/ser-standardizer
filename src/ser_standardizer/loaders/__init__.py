@@ -5,6 +5,7 @@ from .msp_improv import process as process_msp
 from .msp_podcast import process as process_msp_podcast
 from .emouerj import process as process_emouerj
 from .ravdess import process as process_ravdess
+from .emodb import process as process_emodb
 
 # Dicionário que mapeia o nome do dataset (string) para a função de processamento
 DATASET_LOADERS = {
@@ -14,7 +15,8 @@ DATASET_LOADERS = {
     'msp_improv': process_msp,
     'msp_podcast': process_msp_podcast,
     'emouerj': process_emouerj,
-    'ravdess': process_ravdess
+    'ravdess': process_ravdess,
+    'emodb': process_emodb
 }
 
 def get_available_datasets():
