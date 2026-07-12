@@ -38,25 +38,21 @@ def process(base_dir=None):
         for row in original_df.itertuples():
             try:
                 original_emotion = row.emotion
-                speaker = row.get('speaker')
-                gender = row.get('gender').capitalize()
-                full_path = row.get('file_path')
+                speaker = row.speaker
+                gender = row.gender.capitalize()
+                full_path = row.file_path
                 filename = os.path.basename(full_path)
-                sentence_text = "Conteúdo em Português" 
-
+                sentence_text = "Conteúdo em Português"
                 file_info = {
                     'dataset': 'EmoUERJ',
                     'file_path': full_path,
-                    # 'filename': filename,
                     'speaker_id': f"emouerj_{speaker}",
                     'gender': gender,
                     'language': 'pt-br',
                     'sentence_text': sentence_text,
                     'emotion': EMOTION_MAP.get(original_emotion, original_emotion),
                 }
-
                 all_file_data.append(file_info)
-
             except Exception as e:
                 print(f"Erro ao processar linha do EmoUERJ: {e}")
 

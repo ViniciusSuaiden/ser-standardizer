@@ -60,7 +60,7 @@ def process(base_dir):
         print(f"Processando {session}...")
         
         # Caminhos cruciais dentro da sessão
-        wav_root = os.path.join(session_dir, 'dialog', 'wav')
+        wav_root = os.path.join(session_dir, 'sentences', 'wav')
         label_root = os.path.join(session_dir, 'dialog', 'EmoEvaluation')
         trans_root = os.path.join(session_dir, 'dialog', 'transcriptions')
         

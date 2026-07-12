@@ -75,7 +75,7 @@ def extract_features(df, feature_set='eGeMAPS', feature_level='functionals', use
                 feat_series = feat_df.iloc[0].rename(idx)
                 features_list.append(feat_series)
             else:
-                feat_df['file_idx'] = idx 
+                feat_df['file_idx'] = idx
                 features_list.append(feat_df)
                 
         except Exception as e:

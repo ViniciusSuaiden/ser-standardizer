@@ -86,7 +86,7 @@ def process(base_dir):
                 
                 # --- C. Padronizar e Consolidar ---
                 file_info = {
-                    'dataset': 'CREMA-D',
+                    'dataset': 'CREMA_D',
                     'file_path': full_file_path,
                     # 'filename': filename,
                     'speaker_id': f"crema_{actor_id}", 
