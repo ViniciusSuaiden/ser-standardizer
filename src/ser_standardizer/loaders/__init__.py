@@ -2,6 +2,7 @@ from .crema_d import process as process_crema
 from .iemocap import process as process_iemocap
 from .savee import process as process_savee
 from .msp_improv import process as process_msp
+from .msp_podcast import process as process_msp_podcast
 from .emouerj import process as process_emouerj
 from .ravdess import process as process_ravdess
 
@@ -11,6 +12,7 @@ DATASET_LOADERS = {
     'iemocap': process_iemocap,
     'savee': process_savee,
     'msp_improv': process_msp,
+    'msp_podcast': process_msp_podcast,
     'emouerj': process_emouerj,
     'ravdess': process_ravdess
 }

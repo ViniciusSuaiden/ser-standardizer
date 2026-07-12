@@ -13,7 +13,7 @@ Além do pipeline de padronização, a ferramenta conta com um módulo de extens
 
 A ferramenta atualmente suporta o carregamento e padronização dos seguintes bancos de dados:
 
-* **CREMA-D** | **IEMOCAP** | **SAVEE** | **EmoUERJ** (PT-BR) | **MSP-IMPROV** | **RAVDESS**
+* **CREMA-D** | **IEMOCAP** | **SAVEE** | **EmoUERJ** (PT-BR) | **MSP-IMPROV** | **MSP-PODCAST** | **RAVDESS**
 
 ## 🚀 Instalação
 
