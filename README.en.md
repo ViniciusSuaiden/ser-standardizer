@@ -92,6 +92,11 @@ features_df = ser.extract_features(
 import pandas as pd
 final_dataset = pd.concat([df_target, features_df], axis=1)
 
+# Group-wise normalization (z-score) — removes corpus/speaker offsets.
+# Pass the grouping column (e.g., 'dataset' or 'speaker_id').
+X_corpus  = ser.normalize(features_df, df_target['dataset'])
+X_speaker = ser.normalize(features_df, df_target['speaker_id'])
+
 # --- Extra Utilities ---
 # Listen to the audio in a Jupyter Notebook
 ser.listen(df_target, index=42)
