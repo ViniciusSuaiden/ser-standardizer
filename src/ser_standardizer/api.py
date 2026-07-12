@@ -53,6 +53,18 @@ def filters(df, datasets=None, emotions=None, genders=None, languages=None):
     print(f"Filtro aplicado. Restaram {len(df[mask])} amostras.")
     return df[mask].copy()
 
+def normalize(features, group, method="zscore", eps=1e-8):
+    """Normaliza `features` por grupo (ex.: por dataset ou locutor)."""
+    if method != "zscore":
+        raise ValueError(
+            f"Método desconhecido: {method!r}. Suportado: 'zscore'."
+        )
+    g = group.reindex(features.index)
+    out = features.groupby(g).transform(
+        lambda c: (c - c.mean()) / (c.std(ddof=0) + eps)
+    )
+    return out.fillna(0.0)
+
 try:
     from .features.preprocessing import listen, load_audio, load_batch
     from .features.extractor import extract_features
