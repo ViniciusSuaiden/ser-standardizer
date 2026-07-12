@@ -1,3 +1,5 @@
+🇧🇷 Português | [🇺🇸 English](../en/datasets/emouerj.md)
+
 ## EmoUERJ (guia)
 
 O EmoUERJ é um dataset aberto e gerenciado automaticamente pela biblioteca audb. 

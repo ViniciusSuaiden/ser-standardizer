@@ -1,5 +1,7 @@
 # SER-Standardizer
 
+🇧🇷 Português | [🇺🇸 English](README.en.md)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
 
@@ -13,7 +15,9 @@ Além do pipeline de padronização, a ferramenta conta com um módulo de extens
 
 A ferramenta atualmente suporta o carregamento e padronização dos seguintes bancos de dados:
 
-* **CREMA-D** | **IEMOCAP** | **SAVEE** | **EmoUERJ** (PT-BR) | **MSP-IMPROV** | **MSP-PODCAST** | **RAVDESS**
+* **CREMA-D** | **IEMOCAP** | **EmoUERJ** (PT-BR) | **MSP-IMPROV** | **MSP-PODCAST** | **RAVDESS** | **EmoDB** (DE)
+
+Guias de download e estrutura de pastas de cada banco estão em [`docs/datasets/`](docs/datasets/).
 
 ## 🚀 Instalação
 
@@ -77,10 +81,11 @@ O módulo de extração automatiza o processamento digital de sinais. Ele inclui
 # Extração massiva via openSMILE
 # 'feature_set' suportados: 'eGeMAPS' ou 'ComParE'
 features_df = ser.extract_features(
-    df_target, 
+    df_target,
     feature_set='eGeMAPS',
-    use_vad=True, # Remove silêncio antes da extração
-    sr=16000      # Taxa de amostragem
+    feature_level='functionals', # 'functionals' (1 vetor por utterance) ou 'llds' (por frame)
+    use_vad=False, # VAD (remoção de silêncio) só é permitido com feature_level='llds'
+    sr=16000       # Taxa de amostragem
 )
 
 # O resultado preserva os índices originais, facilitando a concatenação

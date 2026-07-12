@@ -1,3 +1,5 @@
+🇧🇷 Português | [🇺🇸 English](../en/datasets/iemocap.md)
+
 ## IEMOCAP (guia)
 
 Este BD requer uma solicitação formal de acesso para fins de pesquisa.

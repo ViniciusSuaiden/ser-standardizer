@@ -1,3 +1,5 @@
+🇧🇷 Português | [🇺🇸 English](../en/datasets/crema_d.md)
+
 ## CREMA-D (guia)
 
 Os dados estão hospedados no GitHub, mas utilizam **Git LFS (Large File Storage)** para os arquivos de áudio.

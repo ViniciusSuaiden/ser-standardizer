@@ -1,3 +1,5 @@
+🇧🇷 Português | [🇺🇸 English](../en/datasets/ravdess.md)
+
 ## RAVDESS (guia)
 
 Este dataset é open-source e não requer aprovação formal, apenas exige atribuição correta (citação).

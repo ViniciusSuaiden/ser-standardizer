@@ -26,14 +26,14 @@ def load_datasets(datasets):
         
     return pd.concat(dataframes, ignore_index=True)
 
-def filters(df, datasets=None, emotions=None, genders=None, languages=None):
+def filters(df, datasets=None, emotions=None, genders=None, languages=None, speakers=None):
     mask = pd.Series([True] * len(df), index=df.index)
 
     def to_list(val):
         if isinstance(val, str):
             return [val]
         return val
-    
+
     if datasets:
         target = [x.lower() for x in to_list(datasets)]
         mask = mask & df['dataset'].str.lower().isin(target)
@@ -45,20 +45,20 @@ def filters(df, datasets=None, emotions=None, genders=None, languages=None):
     if genders:
         target = [x.lower() for x in to_list(genders)]
         mask = mask & df['gender'].str.lower().isin(target)
-        
+
     if languages:
         target = [x.lower() for x in to_list(languages)]
         mask = mask & df['language'].str.lower().isin(target)
-    
+
+    if speakers:
+        target = [x.lower() for x in to_list(speakers)]
+        mask = mask & df['speaker_id'].str.lower().isin(target)
+
     print(f"Filtro aplicado. Restaram {len(df[mask])} amostras.")
     return df[mask].copy()
 
-def normalize(features, group, method="zscore", eps=1e-8):
-    """Normaliza `features` por grupo (ex.: por dataset ou locutor)."""
-    if method != "zscore":
-        raise ValueError(
-            f"Método desconhecido: {method!r}. Suportado: 'zscore'."
-        )
+def normalize(features, group, eps=1e-8):
+    """Aplica z-score por grupo em `features` (ex.: por dataset ou locutor)."""
     g = group.reindex(features.index)
     out = features.groupby(g).transform(
         lambda c: (c - c.mean()) / (c.std(ddof=0) + eps)

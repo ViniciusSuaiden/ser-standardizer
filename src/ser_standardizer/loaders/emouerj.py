@@ -1,6 +1,5 @@
 import pandas as pd
 import audb
-import os
 
 EMOTION_MAP = {
     'anger': 'Anger',
@@ -41,15 +40,13 @@ def process(base_dir=None):
                 speaker = row.speaker
                 gender = row.gender.capitalize()
                 full_path = row.file_path
-                filename = os.path.basename(full_path)
-                sentence_text = "Conteúdo em Português"
                 file_info = {
                     'dataset': 'EmoUERJ',
                     'file_path': full_path,
                     'speaker_id': f"emouerj_{speaker}",
                     'gender': gender,
                     'language': 'pt-br',
-                    'sentence_text': sentence_text,
+                    'sentence_text': pd.NA,
                     'emotion': EMOTION_MAP.get(original_emotion, original_emotion),
                 }
                 all_file_data.append(file_info)

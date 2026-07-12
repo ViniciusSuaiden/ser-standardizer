@@ -1,6 +1,5 @@
 from .crema_d import process as process_crema
 from .iemocap import process as process_iemocap
-from .savee import process as process_savee
 from .msp_improv import process as process_msp
 from .msp_podcast import process as process_msp_podcast
 from .emouerj import process as process_emouerj
@@ -11,7 +10,6 @@ from .emodb import process as process_emodb
 DATASET_LOADERS = {
     'crema_d': process_crema,
     'iemocap': process_iemocap,
-    'savee': process_savee,
     'msp_improv': process_msp,
     'msp_podcast': process_msp_podcast,
     'emouerj': process_emouerj,

@@ -1,3 +1,5 @@
+🇧🇷 Português | [🇺🇸 English](../en/datasets/msp_podcast.md)
+
 ## MSP-PODCAST (guia)
 
 Baixar o formulário de release no site e enviar para a equipe do MSP Lab.
