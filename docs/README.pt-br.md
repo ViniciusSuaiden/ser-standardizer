@@ -16,6 +16,6 @@ Guias de aquisição e estrutura de pastas de cada banco de dados suportado. Cad
 | RAVDESS | Inglês (NA) | [pt-br/ravdess.md](pt-br/ravdess.md) |
 | EmoDB | Alemão | [pt-br/emodb.md](pt-br/emodb.md) |
 
-Os mesmos guias em inglês estão em [`en/`](en/).
+Os mesmos guias em inglês estão em [`en/`](en/). O guia do EmoDB também está disponível em alemão: [`de/emodb.md`](de/emodb.md).
 
 Para uma visão geral da biblioteca (instalação e uso), veja o [README](../README.pt-br.md).

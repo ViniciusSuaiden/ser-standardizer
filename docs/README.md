@@ -16,6 +16,6 @@ Acquisition and directory-layout guides for each supported database. Every guide
 | RAVDESS | English (NA) | [en/ravdess.md](en/ravdess.md) |
 | EmoDB | German | [en/emodb.md](en/emodb.md) |
 
-The same guides are available in Portuguese under [`pt-br/`](pt-br/).
+The same guides are available in Portuguese under [`pt-br/`](pt-br/). The EmoDB guide is also available in German: [`de/emodb.md`](de/emodb.md).
 
 For a library overview (installation and usage), see the [README](../README.md).

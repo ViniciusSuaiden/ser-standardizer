@@ -1,4 +1,4 @@
-🇺🇸 English | [🇧🇷 Português](../pt-br/emodb.md)
+🇺🇸 English | [🇧🇷 Português](../pt-br/emodb.md) | [🇩🇪 Deutsch](../de/emodb.md)
 
 ## EmoDB (guide)
 
