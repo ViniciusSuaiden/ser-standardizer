@@ -1,4 +1,4 @@
-[🇧🇷 Português](../../datasets/emouerj.md) | 🇺🇸 English
+🇺🇸 English | [🇧🇷 Português](../pt-br/emouerj.md)
 
 ## EmoUERJ (guide)
 

@@ -1,114 +1,114 @@
 # SER-Standardizer
 
-🇧🇷 Português | [🇺🇸 English](README.en.md)
+🇺🇸 English | [🇧🇷 Português](README.pt-br.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
 
-**Uma infraestrutura modular para padronização de datasets e extração de características em Reconhecimento de Emoção na Fala (SER).**
+**A modular infrastructure for dataset standardization and feature extraction in Speech Emotion Recognition (SER).**
 
-O **SER-Standardizer** é um pacote Python desenvolvido para unificar a formatação de múltiplos bancos de dados de voz, mitigando a heterogeneidade de metadados. O objetivo principal é facilitar o treinamento cruzado (*cross-corpus training*) e testes de generalização de modelos de aprendizado de máquina.
+**SER-Standardizer** is a Python package built to unify the formatting of multiple speech databases, mitigating metadata heterogeneity. Its main goal is to facilitate *cross-corpus training* and generalization testing of machine learning models.
 
-Além do pipeline de padronização, a ferramenta conta com um módulo de extensão para extração de características acústicas (espectrais e prosódicas) integrando o framework **openSMILE**.
+Beyond the standardization pipeline, the tool provides an extension module for acoustic feature extraction (spectral and prosodic) by integrating the **openSMILE** framework.
 
-## 📋 Datasets Suportados Atualmente
+## 📋 Currently Supported Datasets
 
-A ferramenta atualmente suporta o carregamento e padronização dos seguintes bancos de dados:
+The tool currently supports loading and standardizing the following databases:
 
 * **CREMA-D** | **IEMOCAP** | **EmoUERJ** (PT-BR) | **MSP-IMPROV** | **MSP-PODCAST** | **RAVDESS** | **EmoDB** (DE)
 
-Guias de download e estrutura de pastas de cada banco estão em [`docs/datasets/`](docs/datasets/).
+Per-dataset download and directory-layout guides are available under [`docs/en/`](docs/en/).
 
-## 🚀 Instalação
+## 🚀 Installation
 
-### Pré-requisitos
-* Python 3.8 ou superior
-* Bibliotecas listadas no `pyproject.toml` (instaladas automaticamente).
+### Prerequisites
+* Python 3.8 or higher
+* Libraries listed in `pyproject.toml` (installed automatically).
 
-### Instalação via código fonte
-Clone este repositório para instalar utilizando o `pip` (leia mais abaixo sobre isso):
+### Installation from source
+Clone this repository to install it with `pip` (read more about it below):
 ```
 git clone https://github.com/ViniciusSuaiden/ser-standardizer.git
 cd ser-standardizer
 ```
 
-A biblioteca foi projetada com flexibilidade em mente, oferecendo duas modalidades de instalação para otimizar o uso de recursos computacionais:
+The library was designed with flexibility in mind, offering two installation modes to optimize the use of computational resources:
 
-#### 1. Instalação Base (Metadados Leve) 
-Instala apenas os pacotes essenciais (`pandas`, `audb`) para a padronização e filtragem tabular.
+#### 1. Base Installation (Lightweight Metadata)
+Installs only the essential packages (`pandas`, `audb`) for tabular standardization and filtering.
 ```bash
 pip install .
 ```
-#### 2. Instalação Completa (Com Processamento de Sinais)
-Instala as dependências pesadas necessárias para o módulo de extração de características e manipulação de áudio (opensmile, noisereduce).
+#### 2. Full Installation (With Signal Processing)
+Installs the heavy dependencies required for the feature extraction and audio manipulation module (opensmile, noisereduce).
 ```bash
 pip install '.[features]'
 ```
-### 💻 Como Usar
-O fluxo de trabalho é dividido em três etapas lógicas:
+### 💻 How to Use
+The workflow is split into three logical steps:
 
-**1. Pré-processamento (CLI)**
+**1. Preprocessing (CLI)**
 
-Após a instalação, o comando ser-std estará disponível no seu terminal.
-Para padronizar um dataset específico:
+After installation, the `ser-std` command becomes available in your terminal.
+To standardize a specific dataset:
 ```bash
-# Exemplo: crema_d
-ser-std --dataset crema_d --input_dir /caminho/para/crema
+# Example: crema_d
+ser-std --dataset crema_d --input_dir /path/to/crema
 ```
-O arquivo `.csv` padronizado é inserido na pasta base do usuário, com nomes específicos para cada banco de dados.
+The standardized `.csv` file is written to the user's home folder, with a specific name for each database.
 
-**2. Manipulação e Filtragem de Dados (Python)**
+**2. Data Handling and Filtering (Python)**
 
-Após o pré-processamento, utilize a biblioteca para carregar, filtrar e manipular os áudios diretamente em seu código ou Jupyter Notebook.
+After preprocessing, use the library to load, filter and manipulate the audio directly in your code or Jupyter Notebook.
 ```python
 import ser_standardizer as ser
 
-# Carrega múltiplos datasets padronizados em um único DataFrame
+# Loads multiple standardized datasets into a single DataFrame
 df = ser.load_datasets(["crema_d", "ravdess", "iemocap"])
 
-# Filtra por dataset, emoção e gênero
+# Filters by dataset, emotion and gender
 df_target = ser.filters(
     df,
     datasets=['ravdess', 'iemocap'],
-    emotions=['anger', 'sad'], 
+    emotions=['anger', 'sad'],
     genders=['female']
 )
 ```
-**3. Extração de Características Acústicas (Requer [features])**
+**3. Acoustic Feature Extraction (Requires [features])**
 
-O módulo de extração automatiza o processamento digital de sinais. Ele inclui a opção de aplicar uma máscara de Detecção de Atividade de Voz (VAD) baseada na energia RMS para extrair características estritamente dos trechos de fonação efetiva.
+The extraction module automates digital signal processing. It includes the option to apply a Voice Activity Detection (VAD) mask based on RMS energy to extract features strictly from the effective phonation segments.
 ```python
-# Extração massiva via openSMILE
-# 'feature_set' suportados: 'eGeMAPS' ou 'ComParE'
+# Batch extraction via openSMILE
+# Supported 'feature_set' values: 'eGeMAPS' or 'ComParE'
 features_df = ser.extract_features(
     df_target,
     feature_set='eGeMAPS',
-    feature_level='functionals', # 'functionals' (1 vetor por utterance) ou 'llds' (por frame)
-    use_vad=False, # VAD (remoção de silêncio) só é permitido com feature_level='llds'
-    sr=16000       # Taxa de amostragem
+    feature_level='functionals', # 'functionals' (1 vector per utterance) or 'llds' (per frame)
+    use_vad=False, # VAD (silence removal) is only allowed with feature_level='llds'
+    sr=16000       # Sampling rate
 )
 
-# O resultado preserva os índices originais, facilitando a concatenação
+# The result preserves the original indices, making concatenation easy
 import pandas as pd
-dataset_final = pd.concat([df_target, features_df], axis=1)
+final_dataset = pd.concat([df_target, features_df], axis=1)
 
-# Normalização por grupo (z-score) — remove offsets de corpus/locutor.
-# Passe a coluna de agrupamento (ex.: 'dataset' ou 'speaker_id').
+# Group-wise normalization (z-score) — removes corpus/speaker offsets.
+# Pass the grouping column (e.g., 'dataset' or 'speaker_id').
 X_corpus  = ser.normalize(features_df, df_target['dataset'])
 X_speaker = ser.normalize(features_df, df_target['speaker_id'])
 
-# --- Utilitários Extras ---
-# Escutar o áudio no Jupyter Notebook
+# --- Extra Utilities ---
+# Listen to the audio in a Jupyter Notebook
 ser.listen(df_target, index=42)
 
-# Carregar o áudio puro em NumPy Array (ex: para alimentar Redes Neurais)
+# Load the raw audio as a NumPy array (e.g., to feed neural networks)
 audio_array = ser.load_audio(df_target, index=42)
 
-# Carregar um lote de áudios com Zero-Padding
+# Load a batch of audio with zero-padding
 batch = ser.load_batch(df_target, begin=0, end=32)
 ```
 
-### ✍️ Autores
+### ✍️ Authors
 Vinicius Suaiden - USP - vinicius.suaiden@usp.br
 
 Miguel Arjona Ramirez - USP - maramire@usp.br

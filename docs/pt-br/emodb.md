@@ -1,4 +1,4 @@
-🇧🇷 Português | [🇺🇸 English](../en/datasets/emodb.md)
+[🇺🇸 English](../en/emodb.md) | 🇧🇷 Português
 
 ## EmoDB (guia)
 

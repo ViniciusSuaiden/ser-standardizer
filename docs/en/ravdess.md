@@ -1,4 +1,4 @@
-[🇧🇷 Português](../../datasets/ravdess.md) | 🇺🇸 English
+🇺🇸 English | [🇧🇷 Português](../pt-br/ravdess.md)
 
 ## RAVDESS (guide)
 

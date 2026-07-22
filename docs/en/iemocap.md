@@ -1,4 +1,4 @@
-[🇧🇷 Português](../../datasets/iemocap.md) | 🇺🇸 English
+🇺🇸 English | [🇧🇷 Português](../pt-br/iemocap.md)
 
 ## IEMOCAP (guide)
 

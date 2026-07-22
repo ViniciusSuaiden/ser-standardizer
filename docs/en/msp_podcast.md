@@ -1,4 +1,4 @@
-[🇧🇷 Português](../../datasets/msp_podcast.md) | 🇺🇸 English
+🇺🇸 English | [🇧🇷 Português](../pt-br/msp_podcast.md)
 
 ## MSP-PODCAST (guide)
 

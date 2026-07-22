@@ -1,19 +1,21 @@
-🇧🇷 Português | [🇺🇸 English](en/README.md)
+🇺🇸 English | [🇧🇷 Português](README.pt-br.md)
 
-# Documentação — SER-Standardizer
+# Documentation — SER-Standardizer
 
-Guias de aquisição e estrutura de pastas de cada banco de dados suportado. Cada guia explica onde baixar o corpus, a licença e a estrutura que o parâmetro `--input_dir` espera.
+Acquisition and directory-layout guides for each supported database. Every guide explains where to download the corpus, its license, and the structure that the `--input_dir` parameter expects.
 
-## Guias por dataset
+## Per-dataset guides
 
-| Dataset | Idioma | Guia |
+| Dataset | Language | Guide |
 |---|---|---|
-| CREMA-D | Inglês (US) | [datasets/crema_d.md](datasets/crema_d.md) |
-| IEMOCAP | Inglês | [datasets/iemocap.md](datasets/iemocap.md) |
-| EmoUERJ | Português (BR) | [datasets/emouerj.md](datasets/emouerj.md) |
-| MSP-IMPROV | Inglês (US) | [datasets/msp_improv.md](datasets/msp_improv.md) |
-| MSP-PODCAST | Inglês | [datasets/msp_podcast.md](datasets/msp_podcast.md) |
-| RAVDESS | Inglês (NA) | [datasets/ravdess.md](datasets/ravdess.md) |
-| EmoDB | Alemão | [datasets/emodb.md](datasets/emodb.md) |
+| CREMA-D | English (US) | [en/crema_d.md](en/crema_d.md) |
+| IEMOCAP | English | [en/iemocap.md](en/iemocap.md) |
+| EmoUERJ | Portuguese (BR) | [en/emouerj.md](en/emouerj.md) |
+| MSP-IMPROV | English (US) | [en/msp_improv.md](en/msp_improv.md) |
+| MSP-PODCAST | English | [en/msp_podcast.md](en/msp_podcast.md) |
+| RAVDESS | English (NA) | [en/ravdess.md](en/ravdess.md) |
+| EmoDB | German | [en/emodb.md](en/emodb.md) |
 
-Para uma visão geral da biblioteca (instalação e uso), veja o [README](../README.md).
+The same guides are available in Portuguese under [`pt-br/`](pt-br/).
+
+For a library overview (installation and usage), see the [README](../README.md).

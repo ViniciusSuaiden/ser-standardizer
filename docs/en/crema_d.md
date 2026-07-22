@@ -1,4 +1,4 @@
-[🇧🇷 Português](../../datasets/crema_d.md) | 🇺🇸 English
+🇺🇸 English | [🇧🇷 Português](../pt-br/crema_d.md)
 
 ## CREMA-D (guide)
 
